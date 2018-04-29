@@ -47,18 +47,21 @@
     }
     
     /* sidebar */
-    .sidebar div,  .sidebar ul{
-        padding-left:18px;
+    .sidebar div {
+        padding-left:5px;
+    }
+    .sidebar ul{
+        padding-left:15px;
     }
     .sidebar li{
         margin-left: 0px;
     }
+
     .sidebar ul li.active>a {
         border-right: 2px solid;
         color: green;
         font-weight: 600;
     }
-    
   </style>
 </head>
   
@@ -103,56 +106,70 @@
   
   <script src="https://peacecn21st.github.io/ArchivesOfTaoChongyuan/sidebar.js"></script>
   <script>
-      var filetypes = ['md']; //
+      
+        var filetypes = ['md']; //
 
 
-      var c = $docsify.repo.split("/");
-      c[c.length-2] + c[c.length-1];
-      var file_tree = "https://api.github.com/repos/" + c[c.length-2] +'/'+ c[c.length-1] + "/git/trees/master?recursive=1&_="+ Date.parse(new Date());
+        var c = $docsify.repo.split("/");
+        c[c.length-2] + c[c.length-1];
+        var file_tree = "https://api.github.com/repos/" + c[c.length-2] +'/'+ c[c.length-1] + "/git/trees/master?recursive=1&_="+ Date.parse(new Date());
 
-      var getree = [];
-      ajax({
-          method: 'get',
-          url: file_tree,
-          success: function (response) {      // 此处为执行成功后的代码
-             getree = JSON.parse(response);
-             github_filetree(getree, div_nav, filetypes)  // static/sidebar.js
-          },
-          fail:function (status) {
-              console.log('状态码为'+status);
-          }
+        var getree = [];
+        ajax({
+            method: 'get',
+            url: file_tree,
+            success: function (response) {      // 此处为执行成功后的代码
+               getree = JSON.parse(response);
+               //github_filetree(getree, div_nav, filetypes)  // static/sidebar.js
+            },
+            fail:function (status) {
+                console.log('状态码为'+status);
+            }
 
-      });
-
-      function addsidebar(){
-          var div_nav = document.querySelector('div.sidebar-nav')
-          div_nav.innerText = '';
-          create_contents(div_nav); // static/sidebar.js
-
-          var d_iv = document.createElement('div');
-          div_nav.appendChild(d_iv);
-          d_iv.setAttribute('id','addsidebarok');
-
-          var a = document.createElement('a');
-          d_iv.appendChild(a);
-          a.innerText = '> home';
-          a.setAttribute('href',$docsify.repo);
-
-          github_filetree(getree, div_nav, filetypes);
-
-      }
+        });
 
 
 
-      var x = document.location.href.split('?')[0];
-      setInterval(function(){
-          if (document.location.href.split('?')[0]!=x) {
-              addsidebar();
-          }
-          else if (!document.querySelector('#addsidebarok')) {
-              addsidebar();
-          }
-      },3000);
+
+
+        function addsidebar(){
+            var div_nav = document.querySelector('div.sidebar-nav')
+            div_nav.innerText = '';
+            create_contents(div_nav); // static/sidebar.js
+
+            var d_iv = document.createElement('div');
+            div_nav.appendChild(d_iv);
+            d_iv.setAttribute('id','addsidebarok');
+
+
+            var a = document.createElement('a');
+            d_iv.appendChild(a);
+            a.innerText = '> home';
+            a.setAttribute('href',$docsify.nameLink);
+
+            github_filetree(getree, div_nav, filetypes);
+
+            /*active current site*/
+            var site = document.location.href.split('?')[0].split('#')
+            site = site[site.length-1]
+            var active = div_nav.querySelector('a[data_name*="'+site+'"]')
+            active.parentElement.setAttribute('class', 'active');
+
+        }
+
+
+
+        var x = document.location.href.split('?')[0];
+        setInterval(function(){
+            if (document.location.href.split('?')[0]!=x) {
+                addsidebar();
+                x = document.location.href.split('?')[0];
+            }
+            else if (!document.querySelector('#addsidebarok')) {
+                addsidebar();
+            }
+        },3000);
+
 
 
   </script>
