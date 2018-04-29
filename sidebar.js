@@ -1,4 +1,6 @@
 //-*- coding: utf-8 -*-
+
+
 function ajax(opt) {
         opt = opt || {};
         opt.method = opt.method.toUpperCase() || 'POST';
@@ -36,14 +38,14 @@ function ajax(opt) {
 
 
 function create_contents(div_nav) {
-    // body...
+
     var div_l = document.createElement('div');
     div_l.innerText = 'contents'
     div_l.setAttribute("style",'padding-left: 18px');
     div_nav.appendChild(div_l);
 
     document.querySelectorAll('h2').forEach(function (item) {
-        // body...
+
         var ul = document.createElement('ul');
         ul.setAttribute("style",'padding-left: 18px');
         div_l.appendChild(ul);
@@ -66,12 +68,10 @@ function github_filetree (getree, div_nav, filetypes) {
     z_da_t = getree.tree;
     for (var k = 0; k <= z_da_t.length - 1; k++) {
         var pa = z_da_t[k]['path'];
-        console.log(k,pa)
         var type_ = pa.split('.')
         if (filetypes.indexOf(type_[type_.length-1]) > -1) {
             var fles = pa.split('/');
             var this_node = div_nav;
-            console.log(this_node)
             for (var i = 0; i <= fles.length - 1; i++) {
                 var fod_i = this_node.querySelector('ul[folder="'+fles[i]+'"]');
 
@@ -88,7 +88,6 @@ function github_filetree (getree, div_nav, filetypes) {
 
                         li.appendChild(a)
                         this_node.appendChild(ul);
-                        console.log(i,li)
 
                     }else {
                         var ul = document.createElement('ul');
@@ -98,12 +97,10 @@ function github_filetree (getree, div_nav, filetypes) {
                         ul.innerText = fles[i]
                         this_node.appendChild(ul);
                         this_node = ul
-                        console.log(ul)
                     }
 
                 }else{
                     this_node = fod_i
-                    console.log(this_node)
                 };
 
             };
