@@ -69,7 +69,7 @@
   }
     
   
-</script>
+  </script>
   
   <!--<script src="//unpkg.com/docsify/lib/docsify.js" data-load-navbar="sidebar.md"></script> -->
   
@@ -82,15 +82,41 @@
  <script src="//unpkg.com/gitalk/dist/gitalk.min.js"></script>
  
   <script>                                                      // gitalk 评论
-  const gitalk = new Gitalk({                                   // 申请 github auoth app
-      clientID: 'f55bc681d3c2e5acd425',                         // 改app id
-      clientSecret: '58d536ed4f4bab81899441c9ce9970044244444',  // 改app clientSecret
-      repo: 'ArchivesOfTaoChongyuan',
-      owner: 'lonufate',                                    //
-      admin: ['lonufate'],                         // 改管理员 ；管理员登录 初始化评论区
-      distractionFreeMode: false
-  })
-</script>
+    const gitalk = new Gitalk({                                   // 申请 github auoth app
+        clientID: 'f55bc681d3c2e5acd425',                         // 改app id
+        clientSecret: '58d536ed4f4bab81899441c9ce9970044244444',  // 改app clientSecret
+        repo: 'ArchivesOfTaoChongyuan',
+        owner: 'lonufate',                                    //
+        admin: ['lonufate'],                         // 改管理员 ；管理员登录 初始化评论区
+        distractionFreeMode: false
+    })
+  </script>
+  
+  <script src="/sidebar.js"></script>
+  <script>
+    div_nav = document.querySelector('div.sidebar-nav')
+    div_nav.innerText = ''
+    create_contents(div_nav); // static/sidebar.js
+
+    c = $docsify.repo.split("/");
+    c[c.length-2] + c[c.length-1];
+    file_tree = "https://api.github.com/repos/" + c[c.length-2] +'/'+ c[c.length-1] + "/git/trees/master?recursive=1";
+
+    filetypes = ['md','js']
+
+    ajax({
+        method: 'get',
+        url: file_tree,
+        success: function (response) {      // 此处为执行成功后的代码
+           getree = JSON.parse(response);
+           github_filetree(getree, div_nav, filetypes)  // static/sidebar.js
+        },
+        fail:function (status) {
+            console.log('状态码为'+status);
+        }
+
+    });
+  </script>
   
 </body>
 </html>
