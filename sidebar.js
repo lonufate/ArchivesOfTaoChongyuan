@@ -40,7 +40,7 @@ function ajax(opt) {
 function create_contents(div_nav) {
 
     var div_l = document.createElement('div');
-    div_l.innerText = 'contents'
+    div_l.innerText = 'contents';
     //div_l.setAttribute("style",'padding-left: 18px');
     div_nav.appendChild(div_l);
 
@@ -55,9 +55,9 @@ function create_contents(div_nav) {
         //li.setAttribute("style",'margin-left: 0px');
 
         var a = document.createElement('a');
-        li.appendChild(a)
+        li.appendChild(a);
         a.setAttribute("href",document.location.href.split('?')[0]+'?id='+item.id);
-        a.innerText = item.innerText
+        a.innerText = item.innerText;
     });
 }
 
@@ -68,7 +68,7 @@ function github_filetree (getree, div_nav, filetypes) {
     z_da_t = getree.tree;
     for (var k = 0; k <= z_da_t.length - 1; k++) {
         var pa = z_da_t[k]['path'];
-        var type_ = pa.split('.')
+        var type_ = pa.split('.');
         if (filetypes.indexOf(type_[type_.length-1]) > -1) {
             var fles = pa.split('/');
             var this_node = div_nav;
@@ -80,13 +80,13 @@ function github_filetree (getree, div_nav, filetypes) {
                         var ul = document.createElement('ul');
                         //ul.setAttribute("style",'padding-left: 18px')
                         var li = document.createElement('li');
-                        //li.setAttribute("style",'margin-left: 0px')
-                        ul.appendChild(li)
+                        li.setAttribute("class",'active')
+                        ul.appendChild(li);
                         var a = document.createElement('a');
-                        a.innerText = fles[i]
-                        a.setAttribute('href','#/'+pa)
+                        a.innerText = fles[i];
+                        a.setAttribute('href','#/'+pa);
 
-                        li.appendChild(a)
+                        li.appendChild(a);
                         this_node.appendChild(ul);
 
                     }else {
@@ -94,13 +94,13 @@ function github_filetree (getree, div_nav, filetypes) {
                         //ul.setAttribute("style",'padding-left: 18px')
                         ul.setAttribute('folder', fles[i]);
                         ul.setAttribute('class', 'active');
-                        ul.innerText = fles[i]
+                        ul.innerText = fles[i];
                         this_node.appendChild(ul);
-                        this_node = ul
+                        this_node = ul;
                     }
 
                 }else{
-                    this_node = fod_i
+                    this_node = fod_i;
                 };
 
             };
