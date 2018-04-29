@@ -41,17 +41,15 @@ function create_contents(div_nav) {
 
     var div_l = document.createElement('div');
     div_l.innerText = 'contents';
-    //div_l.setAttribute("style",'padding-left: 18px');
     div_nav.appendChild(div_l);
 
     document.querySelectorAll('h2').forEach(function (item) {
 
         var ul = document.createElement('ul');
-        //ul.setAttribute("style",'padding-left: 18px');
         div_l.appendChild(ul);
 
         var li = document.createElement('li');
-        li.setAttribute("class",'active');
+
         ul.appendChild(li);
 
         var a = document.createElement('a');
@@ -78,9 +76,8 @@ function github_filetree (getree, div_nav, filetypes) {
                 if (!fod_i) {
                     if (i == fles.length - 1) {
                         var ul = document.createElement('ul');
-                        //ul.setAttribute("style",'padding-left: 18px')
                         var li = document.createElement('li');
-                        li.setAttribute("class",'active')
+
                         ul.appendChild(li);
                         var a = document.createElement('a');
                         a.innerText = fles[i];
@@ -91,9 +88,7 @@ function github_filetree (getree, div_nav, filetypes) {
 
                     }else {
                         var ul = document.createElement('ul');
-                        //ul.setAttribute("style",'padding-left: 18px')
                         ul.setAttribute('folder', fles[i]);
-                        ul.setAttribute('class', 'active');
                         ul.innerText = fles[i];
                         this_node.appendChild(ul);
                         this_node = ul;
