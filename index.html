@@ -90,18 +90,12 @@
   
   <script src="https://peacecn21st.github.io/ArchivesOfTaoChongyuan/sidebar.js"></script>
   <script>
-    setTimeout(function(){
-        console.log(1);
-        div_nav = document.querySelector('div.sidebar-nav')
-        div_nav.innerText = ''
-        create_contents(div_nav); // static/sidebar.js
-
         c = $docsify.repo.split("/");
         c[c.length-2] + c[c.length-1];
-        file_tree = "https://api.github.com/repos/" + c[c.length-2] +'/'+ c[c.length-1] + "/git/trees/master?recursive=1";
+        file_tree = "https://api.github.com/repos/" + c[c.length-2] +'/'+ c[c.length-1] + "/git/trees/master?recursive=1&_="+ Date.parse(new Date());
 
         filetypes = ['md','js']
-
+        var getree = [];
         ajax({
             method: 'get',
             url: file_tree,
@@ -112,10 +106,31 @@
             fail:function (status) {
                 console.log('状态码为'+status);
             }
-
         });
 
-    },1000);
+        function addsidebar(){
+            div_nav = document.querySelector('div.sidebar-nav')
+            div_nav.innerText = ''
+            create_contents(div_nav); // static/sidebar.js
+
+            var d_iv = document.createElement('div');
+            div_nav.appendChild(d_iv);
+            d_iv.setAttribute('id','addsidebarok');
+            d_iv.innerText = '导航>'
+            github_filetree(getree, div_nav, filetypes)
+
+        }
+
+        var x = document.location.href.split('?')[0]
+        setInterval(function(){
+            if (document.location.href.split('?')[0]!=x) {
+                addsidebar();
+            }
+            else if (!document.querySelector('#addsidebarok')) {
+                addsidebar();
+            }
+        },3000);
+
 
   </script>
   
