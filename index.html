@@ -106,7 +106,6 @@
   
   <script src="https://peacecn21st.github.io/ArchivesOfTaoChongyuan/sidebar.js"></script>
   <script>
-
       var filetypes = ['md']; //
 
       var c = $docsify.repo.split("/");
@@ -132,16 +131,16 @@
           div_nav.innerText = '';
           create_contents(div_nav); // static/sidebar.js
 
-          var d_iv = document.createElement('div');
-          div_nav.appendChild(d_iv);
-          d_iv.setAttribute('id','addsidebarok');
+          var d_ul = document.createElement('ul');
+          div_nav.appendChild(d_ul);
+          d_ul.setAttribute('id','addsidebarok');
 
           var li = document.createElement('li');
-          d_iv.appendChild(li);
+          d_ul.appendChild(li);
 
           var a = document.createElement('a');
           li.appendChild(a);
-          a.innerText = '> home';
+          a.innerHTML = '<strong>home</strong>';
           a.setAttribute('href',$docsify.nameLink);
 
           github_filetree(getree, div_nav, filetypes);
@@ -150,14 +149,13 @@
           var site = document.location.href.split('?')[0].split('#');
           site = site[site.length-1];
           if (site==='') {
-              var active = div_nav.querySelector('div#addsidebarok li');
+              var active = div_nav.querySelector('#addsidebarok li');
           }else  {
               var active = div_nav.querySelector('a[href*="'+decodeURI(site)+'"]');
           }
           active.parentElement.setAttribute('class', 'active');
           active.focus();
       }
-
 
       var x = document.location.href.split('?')[0];
       setInterval(function(){
@@ -170,8 +168,6 @@
           }
           console.log('sidebar 1')
       },3000);
-
-
 
   </script>
   
