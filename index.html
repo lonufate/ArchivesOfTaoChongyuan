@@ -78,13 +78,13 @@
  <script src="//unpkg.com/gitalk/dist/gitalk.min.js"></script>
  
   <script>                                                      // gitalk 评论
-    const gitalk = new Gitalk({                                   // 申请 github auoth app
-        clientID: 'f55bc681d3c2e5acd425',                         // 改app id
-        clientSecret: '58d536ed4f4bab81899441c9ce9970044244444',  // 改app clientSecret
-        repo: 'ArchivesOfTaoChongyuan',
-        owner: 'lonufate',                                    //
-        admin: ['lonufate'],                         // 改管理员 ；管理员登录 初始化评论区
-        distractionFreeMode: false
+     // const gitalk = new Gitalk({                                   // 申请 github auoth app
+     //    clientID: 'f55bc681d3c2e5acd425',                         // 改app id
+     //    clientSecret: '58d536ed4f4bab81899441c9ce9970044244444',  // 改app clientSecret
+     //   repo: 'ArchivesOfTaoChongyuan',
+     //    owner: 'lonufate',                                    //
+     //   admin: ['lonufate'],                         // 改管理员 ；管理员登录 初始化评论区
+     //   distractionFreeMode: false
     })
   </script>
   
@@ -125,6 +125,7 @@
         setInterval(function(){
             if (document.location.href.split('?')[0]!=x) {
                 addsidebar();
+                x = document.location.href.split('?')[0];
             }
             else if (!document.querySelector('#addsidebarok')) {
                 addsidebar();
