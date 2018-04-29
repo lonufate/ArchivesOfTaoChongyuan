@@ -92,31 +92,33 @@
   
   <script src="https://peacecn21st.github.io/ArchivesOfTaoChongyuan/sidebar.js"></script>
   <script>
-      document.addEventListener("DOMContentLoaded", function(){
-        // Handler when the DOM is fully loaded
-          div_nav = document.querySelector('div.sidebar-nav')
-          div_nav.innerText = ''
-          create_contents(div_nav); // static/sidebar.js
+    setTimeout(function(){
+        console.log(1);
+        div_nav = document.querySelector('div.sidebar-nav')
+        div_nav.innerText = ''
+        create_contents(div_nav); // static/sidebar.js
 
-          c = $docsify.repo.split("/");
-          c[c.length-2] + c[c.length-1];
-          file_tree = "https://api.github.com/repos/" + c[c.length-2] +'/'+ c[c.length-1] + "/git/trees/master?recursive=1";
+        c = $docsify.repo.split("/");
+        c[c.length-2] + c[c.length-1];
+        file_tree = "https://api.github.com/repos/" + c[c.length-2] +'/'+ c[c.length-1] + "/git/trees/master?recursive=1";
 
-          filetypes = ['md','js']
+        filetypes = ['md','js']
 
-          ajax({
-              method: 'get',
-              url: file_tree,
-              success: function (response) {      // 此处为执行成功后的代码
-                 getree = JSON.parse(response);
-                 github_filetree(getree, div_nav, filetypes)  // static/sidebar.js
-              },
-              fail:function (status) {
-                  console.log('状态码为'+status);
-              }
+        ajax({
+            method: 'get',
+            url: file_tree,
+            success: function (response) {      // 此处为执行成功后的代码
+               getree = JSON.parse(response);
+               github_filetree(getree, div_nav, filetypes)  // static/sidebar.js
+            },
+            fail:function (status) {
+                console.log('状态码为'+status);
+            }
 
-          });
-      });
+        });
+
+    },1000);
+
   </script>
   
 </body>
