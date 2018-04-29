@@ -51,8 +51,8 @@ function create_contents(div_nav) {
         div_l.appendChild(ul);
 
         var li = document.createElement('li');
+        li.setAttribute("class",'active');
         ul.appendChild(li);
-        //li.setAttribute("style",'margin-left: 0px');
 
         var a = document.createElement('a');
         li.appendChild(a);
