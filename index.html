@@ -92,8 +92,8 @@
   
   <script src="https://peacecn21st.github.io/ArchivesOfTaoChongyuan/sidebar.js"></script>
   <script>
-      window.onload=function (){
-
+      document.addEventListener("DOMContentLoaded", function(){
+        // Handler when the DOM is fully loaded
           div_nav = document.querySelector('div.sidebar-nav')
           div_nav.innerText = ''
           create_contents(div_nav); // static/sidebar.js
@@ -116,7 +116,7 @@
               }
 
           });
-      }
+      });
   </script>
   
 </body>
