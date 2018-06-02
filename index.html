@@ -1,0 +1,175 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="//unpkg.com/docsify/themes/vue.css">
+  <link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">
+  <title>陶崇园</title>
+  <style>
+    /* gitalk */
+    .gt-container a {
+      color: #42b983;
+    }
+    .gt-container a:hover {
+      color: grey;
+      border-color: grey;
+    }
+    .gt-container .gt-svg svg {
+      fill: #42b983;
+    }
+    .gt-container .gt-spinner::before {
+      border-top-color: #42b983;
+    }
+    .gt-container .gt-btn {
+      background-color: #42b983;
+    }
+    .gt-container .gt-btn:hover {
+      background-color: grey;
+    }
+    .gt-container .gt-link {
+      border-bottom: 1px dotted #42b983;
+    }
+    .gt-container .gt-user .is--poping .gt-ico svg {
+      fill: #42b983;
+    }
+    .gt-container .gt-popup .gt-action.is--active:before {
+      background: #42b983;
+    }
+    .gt-container .gt-header-controls-tip {
+      color: #42b983;
+    }
+    .gt-container .gt-comment-username {
+      color: #42b983;
+    }
+    
+    /* sidebar */
+    .sidebar div {
+        padding-left:5px;
+    }
+    .sidebar ul{
+        padding-left:15px;
+    }
+    .sidebar li{
+        margin-left: 0px;
+    }
+
+    .sidebar ul li.active>a {
+        border-right: 2px solid;
+        color: green;
+        font-weight: 600;
+    }
+  </style>
+</head>
+  
+<body>
+  
+  <div id="app"></div>
+  <script>
+    window.$docsify = {
+
+      repo: 'PeaceCN21st/ArchivesOfTaoChongyuan', // 改
+      loadSidebar: false,//'sidebar.md',
+      //alias: {'/.*/sidebar.md': '/sidebar.md'},
+      subMaxLevel: 4,
+      pagination: {
+        previousText: '上一章节',
+        nextText: '下一章节',
+      },
+      
+      search:  'auto'
+  }
+    
+  </script>
+  
+  
+  <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+  <script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>
+  <script src="//unpkg.com/docsify-pagination/dist/docsify-pagination.min.js"></script>
+  
+ <script src="//unpkg.com/docsify/lib/plugins/gitalk.min.js"></script>
+ <script src="//unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+  <script>                                                      // gitalk 评论
+     // const gitalk = new Gitalk({                                   // 申请 github auoth app
+     //    clientID: 'f55bc681d3c2e5acd425',                         // 改app id
+     //    clientSecret: '58d536ed4f4bab81899441c9ce9970044244444',  // 改app clientSecret
+     //   repo: 'ArchivesOfTaoChongyuan',
+     //    owner: 'lonufate',                                    //
+     //   admin: ['lonufate'],                         // 改管理员 ；管理员登录 初始化评论区
+     //   distractionFreeMode: false
+    })
+  </script>
+  
+  <script src="https://peacecn21st.github.io/ArchivesOfTaoChongyuan/sidebar.js"></script>
+  <script>
+      var filetypes = ['md']; //
+
+      var c = $docsify.repo.split("/");
+      c[c.length-2] + c[c.length-1];
+      var file_tree = "https://api.github.com/repos/" + c[c.length-2] +'/'+ c[c.length-1] + "/git/trees/master?recursive=1&_="+ Date.parse(new Date());
+
+      var getree = [];
+      ajax({
+          method: 'get',
+          url: file_tree,
+          success: function (response) {      // 此处为执行成功后的代码
+             getree = JSON.parse(response);
+             //github_filetree(getree, div_nav, filetypes)  // static/sidebar.js
+          },
+          fail:function (status) {
+              console.log('状态码为'+status);
+          }
+
+      });
+
+      function addsidebar(){
+          var div_nav = document.querySelector('div.sidebar-nav')
+          div_nav.innerText = '';
+          create_contents(div_nav); // static/sidebar.js
+
+          var d_ul = document.createElement('ul');
+          div_nav.appendChild(d_ul);
+          d_ul.setAttribute('id','addsidebarok');
+
+          var li = document.createElement('li');
+          d_ul.appendChild(li);
+
+          var a = document.createElement('a');
+          li.appendChild(a);
+          a.innerHTML = '<strong>home</strong>';
+          a.setAttribute('href',$docsify.nameLink);
+
+          github_filetree(getree, div_nav, filetypes);
+
+          /*active current site*/
+          var site = document.location.href.split('?')[0].split('#');
+          site = site[site.length-1];
+          if (site==='') {
+              var active = div_nav.querySelector('#addsidebarok li');
+          }else  {
+              var active = div_nav.querySelector('a[href*="'+decodeURI(site)+'"]');
+          }
+          active.parentElement.setAttribute('class', 'active');
+          active.focus();
+      }
+
+      var x = document.location.href.split('?')[0];
+      setInterval(function(){
+          if (document.location.href.split('?')[0]!=x) {
+              x = document.location.href.split('?')[0];
+              addsidebar();
+          }
+          else if (!document.querySelector('#addsidebarok')) {
+              addsidebar();
+          }
+          console.log('sidebar 1')
+      },3000);
+
+  </script>
+  
+</body>
+</html>
